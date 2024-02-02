@@ -1,25 +1,20 @@
-import logo from './logo.svg';
-import './App.css';
+import React, { useState, useMemo, useCallback } from 'react';
 
-function App() {
+const ExampleComponent = () => {
+  const [count, setCount] = useState(0);
+  const squaredValue = useMemo(() => {
+    console.log('Вычисление квадрата значения...');
+    return count * count;
+  }, [count]);
+  const handleIncrement = useCallback(() => {
+    setCount(prevCount => prevCount + 1);
+  }, []);
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
+      <div>
+        <p>Текущее значение: {count}</p>
+        <p>Квадрат значения: {squaredValue}</p>
+        <button onClick={handleIncrement}>Увеличить</button>
+      </div>
   );
-}
-
-export default App;
+};
+export default ExampleComponent;
